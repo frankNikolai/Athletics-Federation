@@ -1,0 +1,845 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AthleticsFederationDatabaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameActivity" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Championships">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameChampionship" Type="nvarchar" MaxLength="100" />
+          <Property Name="TheDateOfTheBeginning" Type="date" Nullable="false" />
+          <Property Name="TheDateOfTheEnding" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Competitions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameCompetition" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameGender" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="MainPanelOfJudges">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="Suname" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="40" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="40" />
+        </EntityType>
+        <EntityType Name="MainPanelOfJudges_Championships">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdChampionship" Type="int" Nullable="false" />
+          <Property Name="IdMainPanelOfJudges" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdActivity" Type="int" Nullable="false" />
+          <Property Name="Suname" Type="nvarchar" MaxLength="40" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="30" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="40" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="IdGender" Type="int" Nullable="false" />
+          <Property Name="IdTeam" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonCompetitions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdPatricipant" Type="int" Nullable="false" />
+          <Property Name="Place" Type="int" />
+          <Property Name="IdGender" Type="int" Nullable="false" />
+          <Property Name="IdCompetitions" Type="int" Nullable="false" />
+          <Property Name="IdChampionship" Type="int" Nullable="false" />
+          <Property Name="Result" Type="nvarchar" MaxLength="20" />
+          <Property Name="Points" Type="int" />
+        </EntityType>
+        <EntityType Name="ResultOfTeamPrimacy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdChempionship" Type="int" Nullable="false" />
+          <Property Name="Place" Type="int" />
+          <Property Name="IdTeams" Type="int" />
+          <Property Name="Points" Type="int" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="int" Nullable="false" />
+          <Property Name="NameRole" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameTeam" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__MainPanel__IdCha__76184598">
+          <End Role="Championships" Type="Self.Championships" Multiplicity="1" />
+          <End Role="MainPanelOfJudges_Championships" Type="Self.MainPanelOfJudges_Championships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Championships">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MainPanelOfJudges_Championships">
+              <PropertyRef Name="IdChampionship" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MainPanel__IdMai__770C69D1">
+          <End Role="MainPanelOfJudges" Type="Self.MainPanelOfJudges" Multiplicity="1" />
+          <End Role="MainPanelOfJudges_Championships" Type="Self.MainPanelOfJudges_Championships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainPanelOfJudges">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MainPanelOfJudges_Championships">
+              <PropertyRef Name="IdMainPanelOfJudges" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MainPanel__IdUse__7247B4B4">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="MainPanelOfJudges" Type="Self.MainPanelOfJudges" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MainPanelOfJudges">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__IdAct__7FA1AFD2">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="IdActivity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__IdGen__0095D40B">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="IdGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__IdTea__0189F844">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="IdTeam" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCom__IdCha__0742D19A">
+          <End Role="Championships" Type="Self.Championships" Multiplicity="1" />
+          <End Role="PersonCompetitions" Type="Self.PersonCompetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Championships">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCompetitions">
+              <PropertyRef Name="IdChampionship" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCom__IdCom__055A8928">
+          <End Role="Competitions" Type="Self.Competitions" Multiplicity="1" />
+          <End Role="PersonCompetitions" Type="Self.PersonCompetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCompetitions">
+              <PropertyRef Name="IdCompetitions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCom__IdGen__046664EF">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="PersonCompetitions" Type="Self.PersonCompetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCompetitions">
+              <PropertyRef Name="IdGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResulOfTe__IdChe__65E1DDCF">
+          <End Role="Championships" Type="Self.Championships" Multiplicity="1" />
+          <End Role="ResultOfTeamPrimacy" Type="Self.ResultOfTeamPrimacy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Championships">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ResultOfTeamPrimacy">
+              <PropertyRef Name="IdChempionship" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResulOfTe__IdTea__66D60208">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="ResultOfTeamPrimacy" Type="Self.ResultOfTeamPrimacy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ResultOfTeamPrimacy">
+              <PropertyRef Name="IdTeams" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonCompetitions_Participant">
+          <End Role="Participant" Type="Self.Participant" Multiplicity="1" />
+          <End Role="PersonCompetitions" Type="Self.PersonCompetitions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCompetitions">
+              <PropertyRef Name="IdPatricipant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AthleticsFederationDatabaseModelContainer">
+          <EntitySet Name="Activity" EntityType="Self.Activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Championships" EntityType="Self.Championships" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Competitions" EntityType="Self.Competitions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MainPanelOfJudges" EntityType="Self.MainPanelOfJudges" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MainPanelOfJudges_Championships" EntityType="Self.MainPanelOfJudges_Championships" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Participant" EntityType="Self.Participant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonCompetitions" EntityType="Self.PersonCompetitions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResultOfTeamPrimacy" EntityType="Self.ResultOfTeamPrimacy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__MainPanel__IdCha__76184598" Association="Self.FK__MainPanel__IdCha__76184598">
+            <End Role="Championships" EntitySet="Championships" />
+            <End Role="MainPanelOfJudges_Championships" EntitySet="MainPanelOfJudges_Championships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MainPanel__IdMai__770C69D1" Association="Self.FK__MainPanel__IdMai__770C69D1">
+            <End Role="MainPanelOfJudges" EntitySet="MainPanelOfJudges" />
+            <End Role="MainPanelOfJudges_Championships" EntitySet="MainPanelOfJudges_Championships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MainPanel__IdUse__7247B4B4" Association="Self.FK__MainPanel__IdUse__7247B4B4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MainPanelOfJudges" EntitySet="MainPanelOfJudges" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__IdAct__7FA1AFD2" Association="Self.FK__Participa__IdAct__7FA1AFD2">
+            <End Role="Activity" EntitySet="Activity" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__IdGen__0095D40B" Association="Self.FK__Participa__IdGen__0095D40B">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__IdTea__0189F844" Association="Self.FK__Participa__IdTea__0189F844">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Participant" EntitySet="Participant" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCom__IdCha__0742D19A" Association="Self.FK__PersonCom__IdCha__0742D19A">
+            <End Role="Championships" EntitySet="Championships" />
+            <End Role="PersonCompetitions" EntitySet="PersonCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCom__IdCom__055A8928" Association="Self.FK__PersonCom__IdCom__055A8928">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="PersonCompetitions" EntitySet="PersonCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCom__IdGen__046664EF" Association="Self.FK__PersonCom__IdGen__046664EF">
+            <End Role="Gender" EntitySet="Gender" />
+            <End Role="PersonCompetitions" EntitySet="PersonCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResulOfTe__IdChe__65E1DDCF" Association="Self.FK__ResulOfTe__IdChe__65E1DDCF">
+            <End Role="Championships" EntitySet="Championships" />
+            <End Role="ResultOfTeamPrimacy" EntitySet="ResultOfTeamPrimacy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResulOfTe__IdTea__66D60208" Association="Self.FK__ResulOfTe__IdTea__66D60208">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="ResultOfTeamPrimacy" EntitySet="ResultOfTeamPrimacy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonCompetitions_Participant" Association="Self.FK_PersonCompetitions_Participant">
+            <End Role="Participant" EntitySet="Participant" />
+            <End Role="PersonCompetitions" EntitySet="PersonCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AthleticsFederationDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Activity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameActivity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Participants" Relationship="Self.FK__Participa__IdAct__7FA1AFD2" FromRole="Activity" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="Championship">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameChampionship" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TheDateOfTheBeginning" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TheDateOfTheEnding" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="MainPanelOfJudges_Championships" Relationship="Self.FK__MainPanel__IdCha__76184598" FromRole="Championships" ToRole="MainPanelOfJudges_Championships" />
+          <NavigationProperty Name="PersonCompetitions" Relationship="Self.FK__PersonCom__IdCha__0742D19A" FromRole="Championships" ToRole="PersonCompetitions" />
+          <NavigationProperty Name="ResultOfTeamPrimacies" Relationship="Self.FK__ResulOfTe__IdChe__65E1DDCF" FromRole="Championships" ToRole="ResultOfTeamPrimacy" />
+        </EntityType>
+        <EntityType Name="Competition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameCompetition" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PersonCompetitions" Relationship="Self.FK__PersonCom__IdCom__055A8928" FromRole="Competitions" ToRole="PersonCompetitions" />
+        </EntityType>
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameGender" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Participants" Relationship="Self.FK__Participa__IdGen__0095D40B" FromRole="Gender" ToRole="Participant" />
+          <NavigationProperty Name="PersonCompetitions" Relationship="Self.FK__PersonCom__IdGen__046664EF" FromRole="Gender" ToRole="PersonCompetitions" />
+        </EntityType>
+        <EntityType Name="MainPanelOfJudge">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="Suname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MainPanelOfJudges_Championships" Relationship="Self.FK__MainPanel__IdMai__770C69D1" FromRole="MainPanelOfJudges" ToRole="MainPanelOfJudges_Championships" />
+          <NavigationProperty Name="User" Relationship="Self.FK__MainPanel__IdUse__7247B4B4" FromRole="MainPanelOfJudges" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="MainPanelOfJudges_Championships">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdChampionship" Type="Int32" Nullable="false" />
+          <Property Name="IdMainPanelOfJudges" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Championship" Relationship="Self.FK__MainPanel__IdCha__76184598" FromRole="MainPanelOfJudges_Championships" ToRole="Championships" />
+          <NavigationProperty Name="MainPanelOfJudge" Relationship="Self.FK__MainPanel__IdMai__770C69D1" FromRole="MainPanelOfJudges_Championships" ToRole="MainPanelOfJudges" />
+        </EntityType>
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdActivity" Type="Int32" Nullable="false" />
+          <Property Name="Suname" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="IdGender" Type="Int32" Nullable="false" />
+          <Property Name="IdTeam" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Activity" Relationship="Self.FK__Participa__IdAct__7FA1AFD2" FromRole="Participant" ToRole="Activity" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK__Participa__IdGen__0095D40B" FromRole="Participant" ToRole="Gender" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__Participa__IdTea__0189F844" FromRole="Participant" ToRole="Teams" />
+          <NavigationProperty Name="PersonCompetitions" Relationship="Self.FK_PersonCompetitions_Participant" FromRole="Participant" ToRole="PersonCompetitions" />
+        </EntityType>
+        <EntityType Name="PersonCompetition">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPatricipant" Type="Int32" Nullable="false" />
+          <Property Name="Place" Type="Int32" />
+          <Property Name="IdGender" Type="Int32" Nullable="false" />
+          <Property Name="IdCompetitions" Type="Int32" Nullable="false" />
+          <Property Name="IdChampionship" Type="Int32" Nullable="false" />
+          <Property Name="Result" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Points" Type="Int32" />
+          <NavigationProperty Name="Championship" Relationship="Self.FK__PersonCom__IdCha__0742D19A" FromRole="PersonCompetitions" ToRole="Championships" />
+          <NavigationProperty Name="Competition" Relationship="Self.FK__PersonCom__IdCom__055A8928" FromRole="PersonCompetitions" ToRole="Competitions" />
+          <NavigationProperty Name="Gender" Relationship="Self.FK__PersonCom__IdGen__046664EF" FromRole="PersonCompetitions" ToRole="Gender" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK_PersonCompetitions_Participant" FromRole="PersonCompetitions" ToRole="Participant" />
+        </EntityType>
+        <EntityType Name="ResultOfTeamPrimacy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdChempionship" Type="Int32" Nullable="false" />
+          <Property Name="Place" Type="Int32" />
+          <Property Name="IdTeams" Type="Int32" />
+          <Property Name="Points" Type="Int32" />
+          <NavigationProperty Name="Championship" Relationship="Self.FK__ResulOfTe__IdChe__65E1DDCF" FromRole="ResultOfTeamPrimacy" ToRole="Championships" />
+          <NavigationProperty Name="Team" Relationship="Self.FK__ResulOfTe__IdTea__66D60208" FromRole="ResultOfTeamPrimacy" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="IdRole" />
+          </Key>
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <Property Name="NameRole" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_Role" FromRole="Role" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameTeam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Participants" Relationship="Self.FK__Participa__IdTea__0189F844" FromRole="Teams" ToRole="Participant" />
+          <NavigationProperty Name="ResultOfTeamPrimacies" Relationship="Self.FK__ResulOfTe__IdTea__66D60208" FromRole="Teams" ToRole="ResultOfTeamPrimacy" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MainPanelOfJudges" Relationship="Self.FK__MainPanel__IdUse__7247B4B4" FromRole="Users" ToRole="MainPanelOfJudges" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Users_Role" FromRole="Users" ToRole="Role" />
+        </EntityType>
+        <Association Name="FK__Participa__IdAct__7FA1AFD2">
+          <End Role="Activity" Type="Self.Activity" Multiplicity="1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Activity">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="IdActivity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MainPanel__IdCha__76184598">
+          <End Role="Championships" Type="Self.Championship" Multiplicity="1" />
+          <End Role="MainPanelOfJudges_Championships" Type="Self.MainPanelOfJudges_Championships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Championships">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MainPanelOfJudges_Championships">
+              <PropertyRef Name="IdChampionship" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCom__IdCha__0742D19A">
+          <End Role="Championships" Type="Self.Championship" Multiplicity="1" />
+          <End Role="PersonCompetitions" Type="Self.PersonCompetition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Championships">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCompetitions">
+              <PropertyRef Name="IdChampionship" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResulOfTe__IdChe__65E1DDCF">
+          <End Role="Championships" Type="Self.Championship" Multiplicity="1" />
+          <End Role="ResultOfTeamPrimacy" Type="Self.ResultOfTeamPrimacy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Championships">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ResultOfTeamPrimacy">
+              <PropertyRef Name="IdChempionship" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCom__IdCom__055A8928">
+          <End Role="Competitions" Type="Self.Competition" Multiplicity="1" />
+          <End Role="PersonCompetitions" Type="Self.PersonCompetition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Competitions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCompetitions">
+              <PropertyRef Name="IdCompetitions" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__IdGen__0095D40B">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="IdGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonCom__IdGen__046664EF">
+          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
+          <End Role="PersonCompetitions" Type="Self.PersonCompetition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCompetitions">
+              <PropertyRef Name="IdGender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MainPanel__IdMai__770C69D1">
+          <End Role="MainPanelOfJudges" Type="Self.MainPanelOfJudge" Multiplicity="1" />
+          <End Role="MainPanelOfJudges_Championships" Type="Self.MainPanelOfJudges_Championships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MainPanelOfJudges">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MainPanelOfJudges_Championships">
+              <PropertyRef Name="IdMainPanelOfJudges" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__MainPanel__IdUse__7247B4B4">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="MainPanelOfJudges" Type="Self.MainPanelOfJudge" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MainPanelOfJudges">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Participa__IdTea__0189F844">
+          <End Role="Teams" Type="Self.Team" Multiplicity="1" />
+          <End Role="Participant" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Participant">
+              <PropertyRef Name="IdTeam" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonCompetitions_Participant">
+          <End Role="Participant" Type="Self.Participant" Multiplicity="1" />
+          <End Role="PersonCompetitions" Type="Self.PersonCompetition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participant">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PersonCompetitions">
+              <PropertyRef Name="IdPatricipant" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ResulOfTe__IdTea__66D60208">
+          <End Role="Teams" Type="Self.Team" Multiplicity="0..1" />
+          <End Role="ResultOfTeamPrimacy" Type="Self.ResultOfTeamPrimacy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ResultOfTeamPrimacy">
+              <PropertyRef Name="IdTeams" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IdRole" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AthleticsFederationDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activities" EntityType="Self.Activity" />
+          <EntitySet Name="Championships" EntityType="Self.Championship" />
+          <EntitySet Name="Competitions" EntityType="Self.Competition" />
+          <EntitySet Name="Genders" EntityType="Self.Gender" />
+          <EntitySet Name="MainPanelOfJudges" EntityType="Self.MainPanelOfJudge" />
+          <EntitySet Name="MainPanelOfJudges_Championships" EntityType="Self.MainPanelOfJudges_Championships" />
+          <EntitySet Name="Participants" EntityType="Self.Participant" />
+          <EntitySet Name="PersonCompetitions" EntityType="Self.PersonCompetition" />
+          <EntitySet Name="ResultOfTeamPrimacies" EntityType="Self.ResultOfTeamPrimacy" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__Participa__IdAct__7FA1AFD2" Association="Self.FK__Participa__IdAct__7FA1AFD2">
+            <End Role="Activity" EntitySet="Activities" />
+            <End Role="Participant" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MainPanel__IdCha__76184598" Association="Self.FK__MainPanel__IdCha__76184598">
+            <End Role="Championships" EntitySet="Championships" />
+            <End Role="MainPanelOfJudges_Championships" EntitySet="MainPanelOfJudges_Championships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCom__IdCha__0742D19A" Association="Self.FK__PersonCom__IdCha__0742D19A">
+            <End Role="Championships" EntitySet="Championships" />
+            <End Role="PersonCompetitions" EntitySet="PersonCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResulOfTe__IdChe__65E1DDCF" Association="Self.FK__ResulOfTe__IdChe__65E1DDCF">
+            <End Role="Championships" EntitySet="Championships" />
+            <End Role="ResultOfTeamPrimacy" EntitySet="ResultOfTeamPrimacies" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCom__IdCom__055A8928" Association="Self.FK__PersonCom__IdCom__055A8928">
+            <End Role="Competitions" EntitySet="Competitions" />
+            <End Role="PersonCompetitions" EntitySet="PersonCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__IdGen__0095D40B" Association="Self.FK__Participa__IdGen__0095D40B">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="Participant" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonCom__IdGen__046664EF" Association="Self.FK__PersonCom__IdGen__046664EF">
+            <End Role="Gender" EntitySet="Genders" />
+            <End Role="PersonCompetitions" EntitySet="PersonCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MainPanel__IdMai__770C69D1" Association="Self.FK__MainPanel__IdMai__770C69D1">
+            <End Role="MainPanelOfJudges" EntitySet="MainPanelOfJudges" />
+            <End Role="MainPanelOfJudges_Championships" EntitySet="MainPanelOfJudges_Championships" />
+          </AssociationSet>
+          <AssociationSet Name="FK__MainPanel__IdUse__7247B4B4" Association="Self.FK__MainPanel__IdUse__7247B4B4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MainPanelOfJudges" EntitySet="MainPanelOfJudges" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Participa__IdTea__0189F844" Association="Self.FK__Participa__IdTea__0189F844">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Participant" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonCompetitions_Participant" Association="Self.FK_PersonCompetitions_Participant">
+            <End Role="Participant" EntitySet="Participants" />
+            <End Role="PersonCompetitions" EntitySet="PersonCompetitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ResulOfTe__IdTea__66D60208" Association="Self.FK__ResulOfTe__IdTea__66D60208">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="ResultOfTeamPrimacy" EntitySet="ResultOfTeamPrimacies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AthleticsFederationDatabaseModelContainer" CdmEntityContainer="AthleticsFederationDatabaseEntities">
+          <EntitySetMapping Name="Activities">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.Activity">
+              <MappingFragment StoreEntitySet="Activity">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameActivity" ColumnName="NameActivity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Championships">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.Championship">
+              <MappingFragment StoreEntitySet="Championships">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameChampionship" ColumnName="NameChampionship" />
+                <ScalarProperty Name="TheDateOfTheBeginning" ColumnName="TheDateOfTheBeginning" />
+                <ScalarProperty Name="TheDateOfTheEnding" ColumnName="TheDateOfTheEnding" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Competitions">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.Competition">
+              <MappingFragment StoreEntitySet="Competitions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameCompetition" ColumnName="NameCompetition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genders">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.Gender">
+              <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameGender" ColumnName="NameGender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MainPanelOfJudges">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.MainPanelOfJudge">
+              <MappingFragment StoreEntitySet="MainPanelOfJudges">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="Suname" ColumnName="Suname" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MainPanelOfJudges_Championships">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.MainPanelOfJudges_Championships">
+              <MappingFragment StoreEntitySet="MainPanelOfJudges_Championships">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdChampionship" ColumnName="IdChampionship" />
+                <ScalarProperty Name="IdMainPanelOfJudges" ColumnName="IdMainPanelOfJudges" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Participants">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.Participant">
+              <MappingFragment StoreEntitySet="Participant">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdActivity" ColumnName="IdActivity" />
+                <ScalarProperty Name="Suname" ColumnName="Suname" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="IdGender" ColumnName="IdGender" />
+                <ScalarProperty Name="IdTeam" ColumnName="IdTeam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonCompetitions">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.PersonCompetition">
+              <MappingFragment StoreEntitySet="PersonCompetitions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdPatricipant" ColumnName="IdPatricipant" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="IdGender" ColumnName="IdGender" />
+                <ScalarProperty Name="IdCompetitions" ColumnName="IdCompetitions" />
+                <ScalarProperty Name="IdChampionship" ColumnName="IdChampionship" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResultOfTeamPrimacies">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.ResultOfTeamPrimacy">
+              <MappingFragment StoreEntitySet="ResultOfTeamPrimacy">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="IdChempionship" ColumnName="IdChempionship" />
+                <ScalarProperty Name="Place" ColumnName="Place" />
+                <ScalarProperty Name="IdTeams" ColumnName="IdTeams" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="NameRole" ColumnName="NameRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NameTeam" ColumnName="NameTeam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="AthleticsFederationDatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

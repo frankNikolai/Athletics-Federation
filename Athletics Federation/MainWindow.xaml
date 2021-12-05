@@ -1,0 +1,33 @@
+﻿<Window x:Class="Athletics_Federation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Athletics_Federation"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="478" Width="400">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="#FF301A7A" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Label Content="SportC" FontStyle="Italic" FontSize="40" Foreground="Wheat" Width="130" Margin="135,50,0,0" Height="83" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+        <Label Content="Федерация легкой атлетики Томской области" FontStyle="Italic" FontSize="14" Foreground="Wheat" Margin="45,120,21,288"/>
+        <Label Content="Логин" FontStyle="Oblique" FontSize="14" Foreground="BlanchedAlmond"  Margin="170,159,157,246"/>
+        <Label Content="Пароль" FontStyle="Oblique" FontSize="14" Foreground="BlanchedAlmond" Margin="170,235,145,173"/>
+        <TextBlock x:Name="BlockLogin" Margin="72,187,0,0" Background="#FF8D08EA" Height="39" VerticalAlignment="Top" HorizontalAlignment="Left" Width="254" ><InlineUIContainer>
+                <TextBox x:Name="txtLogin"  Background="{x:Null}" BorderBrush="{x:Null}" FontSize="23" Foreground="White" HorizontalAlignment="Left" Width="254" Height="39" VerticalAlignment="Bottom"/>
+            </InlineUIContainer></TextBlock>
+        <TextBlock x:Name="BlockPassword" Margin="72,264,0,0" Background="#FFF74646" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="254" ><InlineUIContainer>
+                <PasswordBox x:Name="txtPassword" FontSize="23"   Width="254"
+                    Background="{x:Null}" BorderBrush="{x:Null}" HorizontalAlignment="Left" Height="40"/>
+            </InlineUIContainer></TextBlock>
+        <Button x:Name="Authorization" Content="Войти" Margin="104,324,0,0" FontSize="25" VerticalAlignment="Top" 
+                HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="195" 
+                Background="{x:Null}" Height="48" Foreground="#FFFAFF9A" Click="Authorization_Click" ></Button>
+        <Button Content="войти как гость" x:Name="UnregistredUser" FontSize="17" Width="195" Height="30" Margin="104,388,0,0" Background="{x:Null}" Click="UnregistredUser_Click"  VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="#FF67F551"/>
+    </Grid>
+</Window>
+

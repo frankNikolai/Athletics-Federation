@@ -1,0 +1,33 @@
+﻿<Window x:Class="Athletics_Federation.View.Moderator.XamlCompetition"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Athletics_Federation.View.Moderator"
+        mc:Ignorable="d"
+        Title="Компетенции" Height="356.82" Width="260">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="#FF301A7A" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <DataGrid x:Name="DGridCompetition" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,10,0,0" Background="{x:Null}" Height="147" VerticalAlignment="Top" HorizontalAlignment="Left" Width="232">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding ID}" Header="Номер" Width="75" />
+                <DataGridTextColumn Binding="{Binding NameCompetition}" Header="Компетенция" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="Компетенция" FontSize="14" Margin="10,215,0,0" HorizontalAlignment="Left" Width="98" Height="28" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="Номер" FontSize="14" Margin="10,177,0,0" HorizontalAlignment="Left" Width="98" Height="28" VerticalAlignment="Top" Foreground="White"/>
+
+        <TextBox x:Name="txtId" FontSize="21" Margin="0,177,10,0" Height="28" Width="129" Background="#FFFFFCB7" HorizontalAlignment="Right" VerticalAlignment="Top" />
+        <TextBox x:Name="txtCompetition" FontSize="21" Margin="0,215,10,0" Height="28" Width="129" Background="#FFFFFCB7" HorizontalAlignment="Right" VerticalAlignment="Top" />
+
+
+        <Button x:Name="Insert" FontSize="14" Content="Добавить" Margin="0,271,170,0" Background="#FF2CE223" Click="Insert_Click"  HorizontalAlignment="Right" Width="72" Height="39" VerticalAlignment="Top"/>
+        <Button x:Name="Delete" FontSize="14" Background="#FFEC1414" Content="Удалить" Margin="87,271,0,0" Click="Delete_Click"  HorizontalAlignment="Left" Width="73" Height="39" VerticalAlignment="Top" />
+        <Button x:Name="Update" FontSize="14"  Content="Обновить" Background="#FFDEE465" Margin="165,271,0,0" Click="Update_Click"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="77" Height="39" />
+    </Grid>
+</Window>
